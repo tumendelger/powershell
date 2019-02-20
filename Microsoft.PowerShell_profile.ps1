@@ -7,13 +7,12 @@ $Env:USERNAME = "Tumendelger Erdenebayar"
 #endregion
 
 #region Aliases
-function goto_github_folder {Set-location $env:USERPROFILE\Sources\github}
-function goto_gitlab_folder {Set-location $env:USERPROFILE\Sources\gitlab}
-function goto_bitbucket_folder {Set-location $env:USERPROFILE\Sources\bitbucket}
-
-Set-Alias github goto_github_folder
-Set-Alias gitlab goto_gitlab_folder
-Set-Alias bitbucket goto_bitbucket_folder
+function sources {Set-Location $Env:USERPROFILE\Sources}
+function github {Set-location $env:USERPROFILE\Sources\github}
+function gitlab {Set-location $env:USERPROFILE\Sources\gitlab}
+function bitbucket {Set-location $env:USERPROFILE\Sources\bitbucket}
+function doc { Set-Location $env:USERPROFILE\Documents}
+function projects { Set-Location $env:USERPROFILE\Documents\Projects}
 
 Set-Alias ls Get-ChildItemColor -option AllScope -Force
 Set-Alias dir Get-ChildItemColor -option AllScope -Force
@@ -35,8 +34,11 @@ function prompt {
 
   Write-VcsStatus
 
-  Write-Host
-
   return "> "
 }
+
+#endregion
+
+#region SSH connections
+
 #endregion
