@@ -3,7 +3,8 @@ Import-Module -Name posh-git
 
 #region Environment variables
 $env:Path = "$env:Path;C:\Program Files\OpenSSH-Win64"
-$Env:USERNAME = "Tumendelger Erdenebayar"
+$env:GIT_SSH_COMMAND = '"C:\Program Files\OpenSSH-Win64\ssh.exe" -T'
+$Env:USERNAME = "tumee"
 #endregion
 
 #region Aliases
@@ -25,20 +26,20 @@ function prompt {
   Write-Host "$ENV:USERNAME @ " -NoNewline -ForegroundColor DarkYellow
   Write-Host "$ENV:COMPUTERNAME" -NoNewline -ForegroundColor Magenta
   Write-Host " : " -NoNewline -ForegroundColor DarkGray
-  Write-Host $($(Get-Location) -replace ($env:USERPROFILE).Replace('\', '\\'), "~") -NoNewline -ForegroundColor Blue
+  Write-Host $($(Get-Location) -replace ($env:USERPROFILE).Replace('\', '\\'), "~") -NoNewline -ForegroundColor DarkGreen
   Write-Host " : " -NoNewline -ForegroundColor DarkGray
-  Write-Host (Get-Date -Format G) -NoNewline -ForegroundColor DarkMagenta
-  Write-Host " : " -NoNewline -ForegroundColor DarkGray
+  Write-Host (Get-Date -Format "dd/MM/yy HH:MM") -NoNewline -ForegroundColor DarkMagenta
+  Write-Host " :" -NoNewline -ForegroundColor DarkGray
 
   $global:LASTEXITCODE = $realLASTEXITCODE
 
   Write-VcsStatus
 
-  return "> "
+  return " $ "
 }
 
-#endregion
-
-#region SSH connections
-
+function IsAdmin {
+   $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
+   $currentPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator);
+}
 #endregion
